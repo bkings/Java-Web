@@ -1,26 +1,28 @@
 package com.webdemo.servlets;
 
 import java.io.IOException;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
+import com.webdemo.models.User;
 import com.webdemo.service.UserDaoImpl;
 
 /**
- * Servlet implementation class TestServlet
+ * Servlet implementation class ListServlet
  */
-@WebServlet("/TestServlet")
-public class TestServlet extends HttpServlet {
+@WebServlet("/userlist")
+public class ListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public TestServlet() {
+    public ListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,42 +32,27 @@ public class TestServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		if(request.getSession().getAttribute("activeuser")==null){
+			
 			request.getRequestDispatcher("login.jsp").forward(request, response);
-	
-	
+			
+		}else{
+		
+		UserDaoImpl ud = new UserDaoImpl();
+		List<User> ulist = ud.getAllUser();
+		
+		request.setAttribute("ulist", ulist);
+		
+		request.getRequestDispatcher("list.jsp").forward(request, response);
 		}
+	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-			String un = request.getParameter("username");
-			String psw = request.getParameter("password");
-			
-			UserDaoImpl ud = new UserDaoImpl();
-			
-			if(ud.userLogin(un, psw)){
-				
-				HttpSession session = request.getSession();
-				session.setAttribute("activeuser", un);
-				session.setMaxInactiveInterval(10*60);
-				
-				/*
-				 *	session - 	time interval (how long you surf a webpage or site
-				 *				preventing unauthorized access
-				 *				global variable 
-				 */
-				
-				request.setAttribute("user", un);
-				request.getRequestDispatcher("home.jsp").forward(request, response);
-			}else{
-				
-				request.setAttribute("error", "User does not exist");
-				request.getRequestDispatcher("login.jsp").forward(request, response);
-			}
-	
-	
-		}
+		// TODO Auto-generated method stub
+		doGet(request, response);
+	}
 
 }

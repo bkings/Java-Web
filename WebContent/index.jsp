@@ -6,13 +6,15 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Index</title>
 </head>
-<body bgcolor = "#0066">
+<body>
 
 	<h1 align = "center">Index</h1>
 	<hr/>
 	
 	<a href = "TestServlet">Log In</a><br/>
-	<a href = "SignupServlet">Sign Up</a>
+	<a href = "SignupServlet">Sign Up</a><br/>
+	<a href = "userlist">User List</a>
+	
 	
 
 </body>

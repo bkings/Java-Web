@@ -11,7 +11,10 @@
 	<h1>Home Page</h1>
 	<hr>
 	
-	<p> Welcome : ${user}</p>
+	<p> Welcome : ${user}</p><br/>
+	<a href = "userlist">List all Users</a>
+	
+	<a href = "logout">Logout</a>
 
 </body>
 </html>
